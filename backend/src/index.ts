@@ -2,10 +2,16 @@
  import cors from 'cors';
 import bodyParser from 'body-parser';
 import "dotenv/config";
+import mongose from 'mongoose';
+import myUserRoute from './routes/MyUserRoute';
 
 
 
-
+mongose.connect( process.env.MONGO_URI as string).then(()=>{
+    console.log("Connected to the database");
+}).catch((error)=>{
+    console.log("Error: ", error);
+});
 const app = express();
 
 
@@ -16,9 +22,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-app.get("/test", async(req: Request, res: Response)=>{
-    res.json({message: "Hello World"});
-});
+app.use("/api/user", myUserRoute);
+
 
 app.listen(7000, ()=>{
     console.log("Server is running on port 7000");
