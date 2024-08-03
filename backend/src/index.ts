@@ -22,6 +22,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
+app.get("/health", (req: Request, res: Response)=>{
+    res.status(200).json({message: "Health is OK"});
+}); //http://localhost:7000/health
+
+
+
+
+
+//api/my/user
 app.use("/api/user", myUserRoute);
 
 
